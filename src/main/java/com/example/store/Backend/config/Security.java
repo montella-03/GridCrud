@@ -21,7 +21,6 @@ public class Security extends VaadinWebSecurity {
         super.configure(httpSecurity);
         setLoginView(httpSecurity, LoginView.class);
         //logout
-        httpSecurity.logout(logout -> logout.logoutSuccessUrl("/login"));
     }
 
     @Bean
@@ -31,6 +30,11 @@ public class Security extends VaadinWebSecurity {
                 .username("christopher")
                 .password(passwordEncoder().encode("1234"))
                 .roles("USER")
+                .build(),
+                User.builder()
+                .username("manager")
+                .password(passwordEncoder().encode("1234"))
+                .roles("USER","MANAGER")
                 .build()
         );
     }

@@ -4,6 +4,7 @@ import com.example.store.Backend.products.Product;
 import com.example.store.Backend.products.ProductService;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.cookieconsent.CookieConsent;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;

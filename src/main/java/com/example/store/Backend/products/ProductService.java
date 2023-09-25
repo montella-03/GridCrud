@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import org.vaadin.crudui.crud.CrudListener;
 
 import java.util.Collection;
+import java.util.List;
 
 @Service
 public class ProductService implements CrudListener<Product> {
@@ -14,7 +15,7 @@ public class ProductService implements CrudListener<Product> {
     }
 
     @Override
-    public Collection<Product> findAll() {
+    public List<Product> findAll() {
         return productRepository.findAll();
     }
 

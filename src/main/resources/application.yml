@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/store
+    username: root
+    password: Edu19-94
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+
+vaadin:
+  whitelisted-packages: com.example.store,com.vaadin,org.vaadin

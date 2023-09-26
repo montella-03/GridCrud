@@ -1,6 +1,5 @@
 package com.example.store.ui;
 
-import ar.com.fdvs.dj.domain.DJChart;
 import com.example.store.Backend.products.Product;
 import com.example.store.Backend.products.ProductService;
 import com.vaadin.flow.component.html.Anchor;

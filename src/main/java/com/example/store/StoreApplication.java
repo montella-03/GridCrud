@@ -1,10 +1,15 @@
 package com.example.store;
 
+import com.vaadin.flow.component.page.AppShellConfigurator;
+import com.vaadin.flow.theme.Theme;
+import com.vaadin.flow.theme.lumo.Lumo;
+import com.vaadin.flow.theme.material.Material;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class StoreApplication {
+@Theme(value="store",variant = Lumo.LIGHT)
+public class StoreApplication implements AppShellConfigurator {
 
     public static void main(String[] args) {
         SpringApplication.run(StoreApplication.class, args);

@@ -11,11 +11,12 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
+import jakarta.annotation.security.RolesAllowed;
 import org.vaadin.crudui.crud.impl.GridCrud;
 
 
-@AnonymousAllowed
-@Route("")
+@RolesAllowed("USER")
+@Route(value = "",layout = MainLayout.class)
 public class HomeView extends VerticalLayout {
 
     public HomeView(ProductService productService){
@@ -39,11 +40,8 @@ public class HomeView extends VerticalLayout {
         header.setJustifyContentMode(JustifyContentMode.BETWEEN);
         header.setAlignItems(Alignment.CENTER);
 
-        Button btn = new Button("Main");
-        btn.addClickListener(e -> btn.getUI().ifPresent(ui -> ui.navigate("/manager")));
         header.add(new H1("Welcome to the store"));
 
-        header.add(btn);
         return header;
     }
 

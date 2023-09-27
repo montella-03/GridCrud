@@ -10,7 +10,7 @@ import com.vaadin.flow.server.StreamResource;
 import jakarta.annotation.security.RolesAllowed;
 import org.vaadin.reports.PrintPreviewReport;
 
-@Route("report")
+@Route(value = "report",layout = MainLayout.class)
 @RolesAllowed("MANAGER")
 public class ReportView extends VerticalLayout {
 

@@ -48,3 +48,29 @@ a[highlight] {
     text-decoration-color: var(--lumo-primary-color);
     text-color: var(--lumo-primary-color);
 }
+.card{
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    align-items: center;
+    text-align: center;
+    margin-right: 60px;
+
+}
+.card:hover{
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    cursor: pointer;
+}
+.number{
+    text-align: center;
+    align-items: center;
+    margin-left: 30px;
+
+}
+.div{
+}
+.booking{
+    background-color: rgb(128, 128, 128,0.01);
+}
+.drawer{
+    background-color: rgba(128, 155, 155, 0.31);
+}

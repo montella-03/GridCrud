@@ -1,6 +1,8 @@
 package com.example.store.Backend.rooms;
 
 import com.example.store.Backend.config.SecurityService;
+import com.example.store.Backend.enumerations.RoomType;
+import com.example.store.Backend.enumerations.Status;
 import org.springframework.stereotype.Service;
 import org.vaadin.crudui.crud.CrudListener;
 
@@ -40,19 +42,37 @@ public class RoomService implements CrudListener<Room> {
         roomRepository.delete(room);
 
     }
-    public Collection<Room> findAllByRoomStatus(String roomStatus) {
+    public Collection<Room> findAllByRoomStatus(Status roomStatus) {
         return roomRepository.findAllByRoomStatus(roomStatus);
     }
     public Collection<Room> findAllByRoomType(String roomType) {
         return roomRepository.findAllByRoomType(roomType);
     }
 
-    public Collection<Room> findAllByRoomCapacity(int roomCapacity) {
-        return roomRepository.findAllByRoomCapacity(roomCapacity);
+    public int findRoomCapacity(String roomNumber) {
+        return roomRepository.findByRoomNumber(roomNumber).getRoomCapacity();
     }
-    public Collection<Room> findAllByRoomStatusAndRoomType(String roomStatus, String roomType) {
+    public Collection<Room> findAllByRoomStatusAndRoomType(Status roomStatus, RoomType roomType) {
         return roomRepository.findAllByRoomStatusAndRoomType(roomStatus, roomType);
 
     }
 
+    public boolean isRoomAvailable(RoomType roomType) {
+        return findAllByRoomStatusAndRoomType(Status.AVAILABLE, roomType).isEmpty();
+    }
+
+    public void updateCapacity(String roomNumber, int numberOfBeds) {
+
+        Room room = roomRepository.findByRoomNumber(roomNumber);
+        room.setRoomCapacity(room.getRoomCapacity()-numberOfBeds);
+        if(room.getRoomCapacity()==0){
+            room.setRoomStatus(Status.NOT_AVAILABLE);
+        }
+
+        roomRepository.save(room);
+    }
+
+    public double findRoomPrice(String roomNumber) {
+        return roomRepository.findByRoomNumber(roomNumber).getRoomPrice();
+    }
 }

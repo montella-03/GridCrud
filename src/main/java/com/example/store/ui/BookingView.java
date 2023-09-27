@@ -5,6 +5,7 @@ import com.example.store.Backend.booking.BookingService;
 import com.example.store.Backend.enumerations.Status;
 import com.example.store.Backend.rooms.RoomService;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.H2;
@@ -18,14 +19,17 @@ import org.vaadin.crudui.crud.impl.GridCrud;
 @RolesAllowed("USER")
 public class BookingView extends VerticalLayout {
     private final RoomService roomService;
+    private final BookingService bookingService;
 
-    public BookingView(BookingService bookingService, RoomService roomService){
+    public BookingView(BookingService bookingService, RoomService roomService, BookingService bookingService1){
         this.roomService = roomService;
+        this.bookingService = bookingService1;
         GridCrud<Booking> grid = new GridCrud<>(Booking.class,bookingService);
         grid.getGrid().setColumns("name","email","nationality","passportNumber","arrivalDate"
                 ,"departureDate","roomType","roomNumber","bedType","numberOfBeds","lockNumber",
                 "bookingChannel","invoiceAmount","amountPaid","balance","numberOfDays");
-        grid.getGrid().addColumn(booking->booking.isCheckedIn()? "Checked In" : "Checked Out").setHeader("Status");
+        grid.getGrid().addColumn(booking->booking.isCheckedIn()? "Checked" : "Not Checked").setHeader("Status");
+        grid.getGrid().getColumns().forEach(col->col.setWidth("200px"));
 //        grid.getGrid().addColumn(booking->booking.isCheckedOut()? "Checked Out" : "Checked In").setHeader("Status");
         grid.setRowCountCaption("%d booking(s) found");
         grid.getCrudFormFactory().setUseBeanValidation(true);
@@ -37,9 +41,20 @@ public class BookingView extends VerticalLayout {
         add(
                 new H2("Booking"),
                 header(),
-                grid
+                grid,
+                new HorizontalLayout(
+                        new VerticalLayout(),
+                        todayGuests()
+                )
         );
         addClassName("booking");
+    }
+
+    private VerticalLayout todayGuests() {
+        Grid<Booking> guests=new Grid<>();
+        guests.addColumns("name","nationality","departureDate","amountPaid");
+        guests.setItems(bookingService.findTodayGuests());
+        return new VerticalLayout(guests);
     }
 
     private Button addNewBookingLink() {

@@ -1,12 +1,16 @@
 package com.example.store.Backend.booking;
 
 import com.example.store.Backend.config.SecurityService;
+import com.example.store.Backend.enumerations.Status;
+import com.example.store.Backend.rooms.Room;
 import com.example.store.Backend.rooms.RoomService;
 import org.springframework.stereotype.Service;
 import org.vaadin.crudui.crud.CrudListener;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.List;
 import java.util.logging.Logger;
 
 @Service
@@ -29,29 +33,33 @@ public class BookingService implements CrudListener<Booking> {
 
     @Override
     public Booking add(Booking booking) {
-        try {
+
+          Room room = roomService.findByRoomNumber(booking.getRoomNumber());
+          if(room.getRoomType().equals(booking.getRoomType()) && room.getRoomCapacity() >= booking.getNumberOfBeds()) {
+
+              booking.setCreatedAt(LocalDateTime.now());
+              booking.setCreatedBy(securityService.getLoggedInUser());
+              booking.setInvoiceAmount(room.getRoomPrice() * booking.getNumberOfBeds());
+              booking.setBalance(booking.getInvoiceAmount() - booking.getAmountPaid());
+              booking.setNumberOfDays(booking.getDepartureDate().getDayOfYear() - booking.getArrivalDate().getDayOfYear());
+              booking.setCheckedIn(false);
+
+                if(room.getRoomCapacity()==booking.getNumberOfBeds()){
+                    room.setRoomStatus(Status.NOT_AVAILABLE);
+                }
+              room.setRoomCapacity(room.getRoomCapacity() - booking.getNumberOfBeds());
+              roomService.update(room);
+              return bookingRepository.save(booking);
 
 
-            if (roomService.isRoomAvailable(booking.getRoomType()) &&
-                    booking.getNumberOfBeds() <= roomService.findRoomCapacity(booking.getRoomNumber())) {
-
-                booking.setCreatedBy(securityService.getLoggedInUser());
-                booking.setCreatedAt(LocalDateTime.now());
-                booking.setInvoiceAmount(roomService.findRoomPrice(booking.getRoomNumber()) * booking.getNumberOfDays());
-                booking.setBalance(booking.getInvoiceAmount() - booking.getAmountPaid());
-                booking.setCheckedIn(false);
-
-                LOGGER.info("Room is available");
-
-                roomService.updateCapacity(booking.getRoomNumber(), booking.getNumberOfBeds());
-                return bookingRepository.save(booking);
-
+          }
+          else{
+              LOGGER.severe("Room type or capacity does not match");
+                return null;
             }
-        } catch (Exception e) {
-            throw new RuntimeException("Room not available");
-        }
-        return null;
     }
+
+
 
     @Override
     public Booking update(Booking booking) {
@@ -64,6 +72,12 @@ public class BookingService implements CrudListener<Booking> {
     @Override
     public void delete(Booking booking) {
         bookingRepository.delete(booking);
+
+    }
+
+    public List<Booking> findTodayGuests() {
+
+      return null;
 
     }
 }

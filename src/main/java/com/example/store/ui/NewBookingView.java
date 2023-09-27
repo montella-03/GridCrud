@@ -49,7 +49,7 @@ public class NewBookingView extends VerticalLayout {
     public NewBookingView(BookingService bookingService, RoomService roomService) {
         this.roomService = roomService;
         List<String> availableRooms = this.roomService.getAvailableRooms();
-        List<String> countries = List.of("KENYA","UGANDA","TANZANIA");
+        List<String> countries = List.of("KENYAN","UGANDAN","TANZANIAN");
 
         roomType.setItems(RoomType.values());
         bedType.setItems(BedType.values());
@@ -57,6 +57,7 @@ public class NewBookingView extends VerticalLayout {
         roomNumber.setItems(availableRooms);
         nationality.setItems(countries);
         numberOfBeds.setRequiredIndicatorVisible(true);
+        phoneNumber.setRequired(true);
 
         name.setRequired(true);
         email.setRequired(true);
@@ -82,7 +83,7 @@ public class NewBookingView extends VerticalLayout {
                 .withValidator(amountPaid -> amountPaid > 0, "Amount paid must be greater than 0")
                 .bind(Booking::getAmountPaid, Booking::setAmountPaid);
         binder.forField(arrivalDate)
-                .withValidator(arrivalDate -> arrivalDate.isBefore(departureDate.getValue()), "Arrival date must be before departure date")
+                .withValidator(Objects::nonNull, "Arrival date must be selected")
                 .bind(Booking::getArrivalDate, Booking::setArrivalDate);
         binder.forField(departureDate)
                 .withValidator(departureDate -> departureDate.isAfter(arrivalDate.getValue()), "Departure date must be after arrival date")
@@ -100,7 +101,7 @@ public class NewBookingView extends VerticalLayout {
                 .withValidator(Objects::nonNull, "Booking channel must be selected")
                 .bind(Booking::getBookingChannel, Booking::setBookingChannel);
         binder.forField(passportNumber)
-                .withValidator(passportNumber -> passportNumber.length() == 8, "Passport number must be 8 characters")
+                .withValidator(passportNumber -> passportNumber.length() ==8, "Passport number must be 8 characters")
                 .bind(Booking::getPassportNumber, Booking::setPassportNumber);
         binder.forField(phoneNumber)
                 .withValidator(phoneNumber -> phoneNumber.length() == 12, "Phone number must be 12 characters")
@@ -118,6 +119,7 @@ public class NewBookingView extends VerticalLayout {
         var form  = new FormLayout(
                 name,
                 email,
+                phoneNumber,
                 nationality,
                 passportNumber,
                 arrivalDate,

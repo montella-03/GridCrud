@@ -82,4 +82,8 @@ public class RoomService implements CrudListener<Room> {
         Collection<Room> rooms = roomRepository.findAllByRoomStatus(Status.AVAILABLE);
         return rooms.stream().map(Room::getRoomNumber).toList();
     }
+
+    public Room findByRoomNumber(String roomNumber) {
+        return roomRepository.findByRoomNumber(roomNumber);
+    }
 }

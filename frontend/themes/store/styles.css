@@ -80,3 +80,9 @@ a[highlight] {
     border-radius: 25px;
 
 }
+.checked-in{
+    color: orange;
+}
+.checked-out{
+    color:green;
+}

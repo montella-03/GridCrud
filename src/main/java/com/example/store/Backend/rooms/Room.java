@@ -33,7 +33,7 @@ public class Room {
     private RoomType roomType;
     private String roomNumber;
     private String roomDescription;
-    private int roomPrice;
+    private double roomPrice;
     @Enumerated(EnumType.STRING)
     private Status roomStatus;
     private int roomCapacity;

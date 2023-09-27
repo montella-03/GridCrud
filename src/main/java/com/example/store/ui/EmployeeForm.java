@@ -20,6 +20,8 @@ import jakarta.annotation.security.RolesAllowed;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Objects;
+
 @Route(value = "new-employee",layout = MainLayout.class)
 @RolesAllowed("MANAGER")
 public class EmployeeForm extends VerticalLayout {
@@ -28,7 +30,7 @@ public class EmployeeForm extends VerticalLayout {
     private TextField lastName = new TextField("Last Name");
     private EmailField email = new EmailField("Email");
     private PasswordField password = new PasswordField("Password");
-    private TextField phoneNumber = new TextField("Phone Number");
+    private TextField phoneNumber = new TextField("Phone Number", "254");
     private TextField address = new TextField("Address");
     private ComboBox<Role> role = new ComboBox<>("Role");
 
@@ -37,6 +39,16 @@ public class EmployeeForm extends VerticalLayout {
 
         public EmployeeForm(EmployeeService employeeService) {
             this.employeeService = employeeService;
+
+            firstName.setRequired(true);
+            lastName.setRequired(true);
+            email.setRequired(true);
+            password.setRequired(true);
+            phoneNumber.setRequired(true);
+            address.setRequired(true);
+            role.setRequired(true);
+            isLocked.setRequired(true);
+
             UserDetails userDetails=(UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             String username=userDetails.getUsername();
             var userInfo = new UserInfo(username,username);
@@ -49,6 +61,33 @@ public class EmployeeForm extends VerticalLayout {
 //            String employeeTopic = "employee";
 //
 //            var messageList = new CollaborationMessageList(userInfo,employeeTopic);
+
+            //binder
+            binder.forField(firstName)
+                    .withValidator(name -> name.length() >= 3, "Name must be at least 3 characters long")
+                    .bind(Employee::getFirstName, Employee::setFirstName);
+            binder.forField(lastName)
+                    .withValidator(name -> name.length() >= 3, "Name must be at least 3 characters long")
+                    .bind(Employee::getLastName, Employee::setLastName);
+            binder.forField(email)
+                    .withValidator(email -> email.contains("@"), "Please enter a valid email address")
+                    .bind(Employee::getEmail, Employee::setEmail);
+            binder.forField(password)
+                    .withValidator(password -> password.length() >= 8, "Password must be at least 8 characters long")
+                    .bind(Employee::getPassword, Employee::setPassword);
+            binder.forField(phoneNumber)
+                    .withValidator(phoneNumber -> phoneNumber.length() == 12, "Please enter a valid phone number starting with country code")
+                    .bind(Employee::getPhoneNumber, Employee::setPhoneNumber);
+            binder.forField(address)
+                    .withValidator(address -> address.length() >= 3, "Address must be at least 3 characters long")
+                    .bind(Employee::getAddress, Employee::setAddress);
+            binder.forField(role)
+                    .withValidator(Objects::nonNull, "Please select a role")
+                    .bind(Employee::getRole, Employee::setRole);
+            binder.forField(isLocked)
+                    .withValidator(Objects::nonNull, "Please select a lock status")
+                    .bind(Employee::isLocked, Employee::setLocked);
+
             var form =  new FormLayout(
                     firstName,
                     lastName,

@@ -4,6 +4,7 @@ import com.example.store.Backend.enumerations.BedType;
 import com.example.store.Backend.enumerations.BookingChannel;
 import com.example.store.Backend.enumerations.RoomType;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -29,10 +30,12 @@ public class Booking {
     @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+    @NotBlank(message = "Name is mandatory")
     private String name;
     private String email;
     private String phoneNumber;
     private String nationality;
+    @NotBlank(message = "Passport Number is mandatory")
     private String passportNumber;
     private LocalDate arrivalDate;
     private LocalDate departureDate;
@@ -46,7 +49,7 @@ public class Booking {
     @Enumerated(value= EnumType.STRING)
     private BookingChannel bookingChannel;
     private double invoiceAmount;
-    private double amountPaid;
+    private int amountPaid;
     private double balance;
     private int numberOfDays;
     private boolean checkedIn;

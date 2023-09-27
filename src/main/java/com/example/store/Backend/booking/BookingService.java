@@ -7,11 +7,14 @@ import org.vaadin.crudui.crud.CrudListener;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.logging.Logger;
+
 @Service
 public class BookingService implements CrudListener<Booking> {
     private final BookingRepository bookingRepository;
     private final RoomService roomService;
     private final SecurityService securityService;
+    private static final Logger LOGGER = Logger.getLogger(BookingService.class.getName());
 
     public BookingService(BookingRepository bookingRepository, RoomService roomService, SecurityService securityService) {
         this.bookingRepository = bookingRepository;
@@ -38,6 +41,7 @@ public class BookingService implements CrudListener<Booking> {
                 booking.setBalance(booking.getInvoiceAmount() - booking.getAmountPaid());
                 booking.setCheckedIn(false);
 
+                LOGGER.info("Room is available");
 
                 roomService.updateCapacity(booking.getRoomNumber(), booking.getNumberOfBeds());
                 return bookingRepository.save(booking);

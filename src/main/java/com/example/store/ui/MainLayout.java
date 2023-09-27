@@ -1,6 +1,5 @@
 package com.example.store.ui;
 
-import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.avatar.Avatar;
@@ -28,10 +27,8 @@ public class MainLayout extends AppLayout {
     private void createHeader() {
         H1 logo = new H1("Workshop Suites");
         logo.addClassNames("text-xl", "font-bold", "text-gray-800", "p-2","m-m","font-serif");
-        Image image = new Image("", "Suites logo");
-        image.setHeight("44px");
-        image.setWidth("44px");
-        image.addClassNames("rounded-full","m-2");
+        Image image = new Image("./images/picha.jpeg","suites");
+        image.addClassNames("picha");
         var avatar = new Avatar(loggedInUser());
         avatar.addClassNames("flex-end","mr-8","mt-2","h-8","w-8");
         HorizontalLayout header = new HorizontalLayout(new DrawerToggle(),image,logo,avatar);

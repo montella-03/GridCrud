@@ -4,7 +4,7 @@ import com.example.store.Backend.booking.Booking;
 import com.example.store.Backend.booking.BookingService;
 import com.example.store.Backend.enumerations.Status;
 import com.example.store.Backend.rooms.RoomService;
-import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.H2;
@@ -26,7 +26,13 @@ public class BookingView extends VerticalLayout {
                 ,"departureDate","roomType","roomNumber","bedType","numberOfBeds","lockNumber",
                 "bookingChannel","invoiceAmount","amountPaid","balance","numberOfDays");
         grid.getGrid().addColumn(booking->booking.isCheckedIn()? "Checked In" : "Checked Out").setHeader("Status");
+//        grid.getGrid().addColumn(booking->booking.isCheckedOut()? "Checked Out" : "Checked In").setHeader("Status");
+        grid.setRowCountCaption("%d booking(s) found");
         grid.getCrudFormFactory().setUseBeanValidation(true);
+        grid.setAddOperationVisible(false);
+        grid.addClassNames("shadow-lg","p-2");
+        grid.getCrudLayout().addToolbarComponent(addNewBookingLink());
+        grid.setWidth("100%");
 
         add(
                 new H2("Booking"),
@@ -34,6 +40,12 @@ public class BookingView extends VerticalLayout {
                 grid
         );
         addClassName("booking");
+    }
+
+    private Button addNewBookingLink() {
+        var addNewBooking = new Button("Add New Booking",e->getUI().ifPresent(ui -> ui.navigate("/booking/new-booking")));
+        addNewBooking.addClassNames("btn","btn-primary","gap-6");
+        return addNewBooking;
     }
 
     private HorizontalLayout header() {

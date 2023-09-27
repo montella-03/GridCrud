@@ -8,6 +8,8 @@ import org.vaadin.crudui.crud.CrudListener;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.List;
+
 @Service
 public class RoomService implements CrudListener<Room> {
     private final RoomRepository roomRepository;
@@ -19,7 +21,7 @@ public class RoomService implements CrudListener<Room> {
     }
 
     @Override
-    public Collection<Room> findAll() {
+    public List<Room> findAll() {
         return roomRepository.findAll();
     }
 
@@ -74,5 +76,10 @@ public class RoomService implements CrudListener<Room> {
 
     public double findRoomPrice(String roomNumber) {
         return roomRepository.findByRoomNumber(roomNumber).getRoomPrice();
+    }
+
+    public List<String> getAvailableRooms() {
+        Collection<Room> rooms = roomRepository.findAllByRoomStatus(Status.AVAILABLE);
+        return rooms.stream().map(Room::getRoomNumber).toList();
     }
 }

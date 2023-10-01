@@ -1,17 +1,18 @@
 package com.example.store.ui;
 
 import com.example.store.Backend.booking.Booking;
+import com.example.store.Backend.booking.BookingRepository;
 import com.example.store.Backend.booking.BookingService;
 import com.example.store.Backend.enumerations.Status;
 import com.example.store.Backend.rooms.RoomService;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.spring.data.VaadinSpringDataHelpers;
 import jakarta.annotation.security.RolesAllowed;
 import org.vaadin.crudui.crud.impl.GridCrud;
 
@@ -19,47 +20,54 @@ import org.vaadin.crudui.crud.impl.GridCrud;
 @RolesAllowed("USER")
 public class BookingView extends VerticalLayout {
     private final RoomService roomService;
-    private final BookingService bookingService;
 
-    public BookingView(BookingService bookingService, RoomService roomService, BookingService bookingService1){
+
+    public BookingView(BookingService bookingService, RoomService roomService){
+
         this.roomService = roomService;
-        this.bookingService = bookingService1;
+
+
+
         GridCrud<Booking> grid = new GridCrud<>(Booking.class,bookingService);
+
         grid.getGrid().setColumns("name","email","nationality","passportNumber","arrivalDate"
                 ,"departureDate","roomType","roomNumber","bedType","numberOfBeds","lockNumber",
                 "bookingChannel","invoiceAmount","amountPaid","balance","numberOfDays");
+
+
         grid.getGrid().addColumn(booking->booking.isCheckedIn()? "Checked" : "Not Checked").setHeader("Status");
+
         grid.getGrid().getColumns().forEach(col->col.setWidth("200px"));
+
 //        grid.getGrid().addColumn(booking->booking.isCheckedOut()? "Checked Out" : "Checked In").setHeader("Status");
         grid.setRowCountCaption("%d booking(s) found");
+
         grid.getCrudFormFactory().setUseBeanValidation(true);
+
         grid.setAddOperationVisible(false);
+
         grid.addClassNames("shadow-lg","p-2");
+
         grid.getCrudLayout().addToolbarComponent(addNewBookingLink());
+
         grid.setWidth("100%");
+
+        grid.scrollIntoView();
 
         add(
                 new H2("Booking"),
                 header(),
-                grid,
-                new HorizontalLayout(
-                        new VerticalLayout(),
-                        todayGuests()
-                )
+                grid
+
         );
         addClassName("booking");
     }
 
-    private VerticalLayout todayGuests() {
-        Grid<Booking> guests=new Grid<>();
-        guests.addColumns("name","nationality","departureDate","amountPaid");
-        guests.setItems(bookingService.findTodayGuests());
-        return new VerticalLayout(guests);
-    }
 
     private Button addNewBookingLink() {
         var addNewBooking = new Button("Add New Booking",e->getUI().ifPresent(ui -> ui.navigate("/booking/new-booking")));
         addNewBooking.addClassNames("btn","btn-primary","gap-6");
+
         return addNewBooking;
     }
 
@@ -97,9 +105,13 @@ public class BookingView extends VerticalLayout {
 
         var verticalLayout = new VerticalLayout();
         var h2 = new H1(roomService.findAllByRoomStatus(Status.AVAILABLE).size() + "+");
+
         h2.addClassName("number");
+
         verticalLayout.addClassNames("card");
+
         verticalLayout.add(
+
                 new VerticalLayout(
                         new H2("Available Rooms"),
                         h2
@@ -109,11 +121,17 @@ public class BookingView extends VerticalLayout {
     }
 
     private VerticalLayout AllRooms(){
+
         var verticalLayout = new VerticalLayout();
+
         var h2 = new H1(roomService.findAll().size() + "+");
+
         h2.addClassName("number");
+
         verticalLayout.addClassNames("card");
+
         verticalLayout.add(
+
                 new VerticalLayout(
                         new H2("All Rooms"),
                         h2

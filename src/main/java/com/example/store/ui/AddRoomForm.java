@@ -79,14 +79,15 @@ public class AddRoomForm extends VerticalLayout {
                                         new Button("Save", event -> {
                                             var room = new Room();
                                             if(binder.writeBeanIfValid(room)){
-                                                roomService.add(room);
-                                                Notification.show("Room saved", 3000, Notification.Position.MIDDLE);
+                                                Room saved = roomService.add(room);
+                                                if(saved.getId()!=null){
+                                                    Notification.show("Room saved successfully",3000, Notification.Position.MIDDLE);
+                                                    binder.readBean(new Room());
+                                                }
+                                                else {
+                                                    Notification.show(" Room not saved", 3000, Notification.Position.MIDDLE);
+                                                }
 
-                                                binder.readBean(new Room());
-
-                                            }
-                                            else {
-                                                Notification.show(" Room not saved", 3000, Notification.Position.MIDDLE);
                                             }
 
                                         }),

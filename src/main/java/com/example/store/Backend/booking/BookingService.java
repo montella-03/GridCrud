@@ -77,7 +77,8 @@ public class BookingService implements CrudListener<Booking> {
 
     public List<Booking> findTodayGuests() {
 
-      return null;
+        return bookingRepository.findTodayGuests(LocalDate.now());
+
 
     }
 }

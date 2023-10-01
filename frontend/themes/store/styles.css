@@ -14,7 +14,7 @@ html {
     --lumo-shade-70pct: rgba(44, 38, 22, 0.7);
     --lumo-shade-80pct: rgba(44, 38, 22, 0.8);
     --lumo-shade-90pct: rgba(44, 38, 22, 0.9);
-    --lumo-primary-text-color: rgba(29, 36, 187, 0.92);
+    --lumo-primary-text-color: rgba(3, 14, 210, 0.99);
     --lumo-primary-color-50pct: rgba(50, 37, 121, 0.5);
     --lumo-primary-color-10pct: rgba(50, 37, 121, 0.1);
     --lumo-error-text-color: rgb(91, 16, 32);
@@ -54,10 +54,11 @@ a[highlight] {
     align-items: center;
     text-align: center;
     margin-right: 60px;
+    background-color: rgba(0, 128, 0, 0.09);
 
 }
 .card:hover{
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 8px 16px 0 rgba(98, 99, 103, 0.98);
     cursor: pointer;
 }
 .number{

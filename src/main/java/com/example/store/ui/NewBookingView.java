@@ -149,7 +149,7 @@ public class NewBookingView extends VerticalLayout {
                                             if(binder.writeBeanIfValid(booking)){
                                                 binder.writeBeanIfValid(booking);
                                                 bookingService.add(booking);
-                                                Notification.show("Booking saved successfully", 3000, Notification.Position.MIDDLE);
+                                                Notification.show("Booking saved successfully", 6000, Notification.Position.MIDDLE);
 
                                                 binder.readBean(new Booking());
 

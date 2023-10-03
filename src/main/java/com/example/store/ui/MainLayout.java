@@ -26,22 +26,36 @@ public class MainLayout extends AppLayout {
 
     private void createHeader() {
         H1 logo = new H1("Workshop Suites");
+
         logo.addClassNames("text-xl", "font-bold", "text-gray-800", "p-2","m-m","font-serif");
+
         Image image = new Image("./images/picha.jpeg","suites");
+
         image.addClassNames("picha");
+
         var avatar = new Avatar(loggedInUser());
+
         avatar.addClassNames("flex-end","mr-8","mt-2","h-8","w-8");
+
         HorizontalLayout header = new HorizontalLayout(new DrawerToggle(),image,logo,avatar);
+
         header.setDefaultVerticalComponentAlignment(FlexComponent.Alignment.CENTER);
+
         header.expand(logo);
+
         header.setWidthFull();
+
         header.addClassNames("py-1","px-m");
+
         addToNavbar(header);
     }
 
     private void createDrawer() {
+
         var verticalLayout = new VerticalLayout();
+
         verticalLayout.addClassNames("mt-m","p-2");
+
         if(checkUser()){
             verticalLayout.add(createManager());
         }

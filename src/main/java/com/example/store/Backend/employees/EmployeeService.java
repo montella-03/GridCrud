@@ -7,6 +7,7 @@ import org.vaadin.crudui.crud.CrudListener;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.List;
 
 @Service
 public class EmployeeService implements CrudListener<Employee> {
@@ -30,7 +31,7 @@ public class EmployeeService implements CrudListener<Employee> {
         employee.setCreatedAt(LocalDateTime.now());
         employee.setCreatedBy(securityService.getLoggedInUser());
         employee.setPassword(passwordEncoder.encode(employee.getPassword()));
-        return employeeRepository.save(employee);
+           return employeeRepository.save(employee);
     }
 
     @Override

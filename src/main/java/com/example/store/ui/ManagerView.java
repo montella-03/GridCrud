@@ -10,7 +10,7 @@ import com.vaadin.flow.router.Route;
 import jakarta.annotation.security.RolesAllowed;
 import org.vaadin.crudui.crud.impl.GridCrud;
 
-@RolesAllowed("MANAGER")
+@RolesAllowed("ROLE_USER")
 @Route(value = "/manager",layout = MainLayout.class)
 public class ManagerView extends VerticalLayout {
 

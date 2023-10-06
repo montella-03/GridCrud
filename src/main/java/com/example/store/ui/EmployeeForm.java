@@ -17,9 +17,13 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.router.Route;
 import jakarta.annotation.security.RolesAllowed;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 @Route(value = "new-employee",layout = MainLayout.class)
@@ -32,7 +36,7 @@ public class EmployeeForm extends VerticalLayout {
     private PasswordField password = new PasswordField("Password");
     private TextField phoneNumber = new TextField("Phone Number", "254");
     private TextField address = new TextField("Address");
-    private ComboBox<Role> role = new ComboBox<>("Role");
+    private final ComboBox<GrantedAuthority> authorities = new ComboBox<>("Authorization Level");
 
     private ComboBox<Boolean> isLocked = new ComboBox<>("Locked");
 
@@ -46,7 +50,7 @@ public class EmployeeForm extends VerticalLayout {
             password.setRequired(true);
             phoneNumber.setRequired(true);
             address.setRequired(true);
-            role.setRequired(true);
+            authorities.setRequired(true);
             isLocked.setRequired(true);
 
             UserDetails userDetails=(UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -54,7 +58,7 @@ public class EmployeeForm extends VerticalLayout {
             var userInfo = new UserInfo(username,username);
             var binder = new Binder<>(Employee.class);
             isLocked.setItems(true,false);
-            role.setItems(Role.values());
+            authorities.setItems(new SimpleGrantedAuthority("ROLE_USER"),new SimpleGrantedAuthority("ROLE_MANAGER"));
             binder.bindInstanceFields(this);
 //            binder.setTopic("product", Employee::new);
 
@@ -81,9 +85,7 @@ public class EmployeeForm extends VerticalLayout {
             binder.forField(address)
                     .withValidator(address -> address.length() >= 3, "Address must be at least 3 characters long")
                     .bind(Employee::getAddress, Employee::setAddress);
-            binder.forField(role)
-                    .withValidator(Objects::nonNull, "Please select a role")
-                    .bind(Employee::getRole, Employee::setRole);
+
             binder.forField(isLocked)
                     .withValidator(Objects::nonNull, "Please select a lock status")
                     .bind(Employee::isLocked, Employee::setLocked);
@@ -95,7 +97,7 @@ public class EmployeeForm extends VerticalLayout {
                     password,
                     phoneNumber,
                     address,
-                    role,
+                    authorities,
                     isLocked
             );
             form.setWidth("60%");

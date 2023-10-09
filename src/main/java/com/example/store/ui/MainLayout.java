@@ -4,6 +4,7 @@ import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.avatar.Avatar;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.icon.Icon;
@@ -17,7 +18,7 @@ import com.vaadin.flow.router.RouterLink;
 import jakarta.annotation.security.RolesAllowed;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-@Route("")
+@Route(value = "")
 @RolesAllowed({"USER","MANAGER"})
 public class MainLayout extends AppLayout {
 
@@ -32,15 +33,15 @@ public class MainLayout extends AppLayout {
 
         logo.addClassNames("text-xl", "font-bold", "text-gray-800", "p-2","m-m","font-serif");
 
-        Image image = new Image("./images/picha.jpeg","suites");
+        var leaf = new Div();
+        leaf.addClassName("leaf");
 
-        image.addClassNames("picha");
 
         var avatar = new Avatar(loggedInUser());
 
         avatar.addClassNames("flex-end","mr-8","mt-2","h-8","w-8");
 
-        HorizontalLayout header = new HorizontalLayout(new DrawerToggle(),image,logo,avatar);
+        HorizontalLayout header = new HorizontalLayout(new DrawerToggle(),leaf,logo,avatar);
 
         header.setDefaultVerticalComponentAlignment(FlexComponent.Alignment.CENTER);
 

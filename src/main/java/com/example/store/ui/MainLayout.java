@@ -12,10 +12,13 @@ import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.HighlightConditions;
+import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLink;
+import jakarta.annotation.security.RolesAllowed;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-
+@Route("")
+@RolesAllowed({"USER","MANAGER"})
 public class MainLayout extends AppLayout {
 
 

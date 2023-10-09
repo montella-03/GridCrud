@@ -9,14 +9,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -43,11 +37,13 @@ public class Employee {
     private String password;
     private String phoneNumber;
     private String address;
-   @ElementCollection(fetch = FetchType.EAGER)
-   private List<GrantedAuthority> authorities= new ArrayList<>();
+//   @ElementCollection(fetch = FetchType.EAGER)
+//   private List<GrantedAuthority> authorities= new ArrayList<>();
+    @Enumerated(EnumType.STRING)
+    private Role role;
     private boolean isLocked;
 
-    public UserDetails asUser() {
-        return new User(email, password, authorities);
-    }
+//    public UserDetails asUser() {
+//        return new User(email, password, authorities);
+//    }
 }

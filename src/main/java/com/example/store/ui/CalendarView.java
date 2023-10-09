@@ -6,7 +6,7 @@ import com.vaadin.flow.router.Route;
 import jakarta.annotation.security.RolesAllowed;
 
 @Route(value = "calendar",layout = MainLayout.class)
-@RolesAllowed("USER")
+@RolesAllowed({"USER","MANAGER"})
 public class CalendarView extends VerticalLayout {
 
     public CalendarView() {

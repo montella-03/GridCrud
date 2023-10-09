@@ -7,7 +7,6 @@ import org.vaadin.crudui.crud.CrudListener;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.List;
 
 @Service
 public class EmployeeService implements CrudListener<Employee> {

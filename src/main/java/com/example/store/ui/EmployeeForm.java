@@ -36,7 +36,7 @@ public class EmployeeForm extends VerticalLayout {
     private PasswordField password = new PasswordField("Password");
     private TextField phoneNumber = new TextField("Phone Number", "254");
     private TextField address = new TextField("Address");
-    private final ComboBox<GrantedAuthority> authorities = new ComboBox<>("Authorization Level");
+    private final ComboBox<Role> roles = new ComboBox<>("Authorization Level");
 
     private ComboBox<Boolean> isLocked = new ComboBox<>("Locked");
 
@@ -50,7 +50,7 @@ public class EmployeeForm extends VerticalLayout {
             password.setRequired(true);
             phoneNumber.setRequired(true);
             address.setRequired(true);
-            authorities.setRequired(true);
+            roles.setRequired(true);
             isLocked.setRequired(true);
 
             UserDetails userDetails=(UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -58,7 +58,7 @@ public class EmployeeForm extends VerticalLayout {
             var userInfo = new UserInfo(username,username);
             var binder = new Binder<>(Employee.class);
             isLocked.setItems(true,false);
-            authorities.setItems(new SimpleGrantedAuthority("ROLE_USER"),new SimpleGrantedAuthority("ROLE_MANAGER"));
+            roles.setItems(Role.values());
             binder.bindInstanceFields(this);
 //            binder.setTopic("product", Employee::new);
 
@@ -85,6 +85,9 @@ public class EmployeeForm extends VerticalLayout {
             binder.forField(address)
                     .withValidator(address -> address.length() >= 3, "Address must be at least 3 characters long")
                     .bind(Employee::getAddress, Employee::setAddress);
+            binder.forField(roles)
+                    .withValidator(Objects::nonNull, "Please select a role")
+                    .bind(Employee::getRole, Employee::setRole);
 
             binder.forField(isLocked)
                     .withValidator(Objects::nonNull, "Please select a lock status")
@@ -97,7 +100,7 @@ public class EmployeeForm extends VerticalLayout {
                     password,
                     phoneNumber,
                     address,
-                    authorities,
+                    roles,
                     isLocked
             );
             form.setWidth("60%");

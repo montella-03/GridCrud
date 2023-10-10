@@ -6,7 +6,7 @@ import com.vaadin.flow.router.Route;
 import jakarta.annotation.security.RolesAllowed;
 
 @Route(value = "expenditure",layout = MainLayout.class)
-@RolesAllowed({"USER","MANAGER"})
+@RolesAllowed({"USER","MANAGER","ADMIN"})
 public class ExpenditureView extends VerticalLayout {
 
     public ExpenditureView() {

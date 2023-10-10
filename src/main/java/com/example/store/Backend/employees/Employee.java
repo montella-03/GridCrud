@@ -9,6 +9,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
 
@@ -42,6 +44,10 @@ public class Employee {
     @Enumerated(EnumType.STRING)
     private Role role;
     private boolean isLocked;
+
+    public UserDetails toUserDetails() {
+        return new User(email, password, role.getGrantedAuthorities());
+    }
 
 //    public UserDetails asUser() {
 //        return new User(email, password, authorities);

@@ -11,7 +11,7 @@ import jakarta.annotation.security.RolesAllowed;
 import org.vaadin.crudui.crud.impl.GridCrud;
 
 @Route(value = "/manager/rooms",layout = MainLayout.class)
-@RolesAllowed({"USER","MANAGER"})
+@RolesAllowed({"USER","MANAGER","ADMIN"})
 public class RoomView extends VerticalLayout {
 
     public RoomView(RoomService roomService){

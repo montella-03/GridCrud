@@ -15,8 +15,8 @@ import jakarta.annotation.security.RolesAllowed;
 import org.vaadin.crudui.crud.impl.GridCrud;
 
 
-@RolesAllowed({"USER","MANAGER"})
-@Route(value = "/product",layout = MainLayout.class)
+@RolesAllowed({"USER","MANAGER","ADMIN"})
+@Route(value = "",layout = MainLayout.class)
 public class HomeView extends VerticalLayout {
 
     public HomeView(ProductService productService){

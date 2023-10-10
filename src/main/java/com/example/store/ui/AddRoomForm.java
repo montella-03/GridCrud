@@ -22,7 +22,7 @@ import jakarta.annotation.security.RolesAllowed;
 import java.util.Objects;
 
 @Route(value = "manager/rooms/add-room",layout = MainLayout.class)
-@RolesAllowed({"USER","MANAGER"})
+@RolesAllowed({"USER","MANAGER","ADMIN"})
 public class AddRoomForm extends VerticalLayout {
     private final RoomService roomService;
     private TextField roomNumber = new TextField("Room Number");

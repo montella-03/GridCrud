@@ -30,6 +30,7 @@ public class EmployeeService implements CrudListener<Employee> {
         employee.setCreatedAt(LocalDateTime.now());
         employee.setCreatedBy(securityService.getLoggedInUser());
         employee.setPassword(passwordEncoder.encode(employee.getPassword()));
+
            return employeeRepository.save(employee);
     }
 

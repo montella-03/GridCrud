@@ -11,7 +11,7 @@ import jakarta.annotation.security.RolesAllowed;
 import org.vaadin.reports.PrintPreviewReport;
 
 @Route(value = "report",layout = MainLayout.class)
-@RolesAllowed("MANAGER")
+@RolesAllowed({"MANAGER","ADMIN"})
 public class ReportView extends VerticalLayout {
 
         public ReportView(ProductService productService) {

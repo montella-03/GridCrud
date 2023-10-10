@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Route(value = "booking/new-booking",layout = MainLayout.class)
-@RolesAllowed({"USER","MANAGER"})
+@RolesAllowed({"USER","MANAGER","ADMIN"})
 public class NewBookingView extends VerticalLayout {
     private final RoomService roomService;
     private TextField name = new TextField("Name");
@@ -91,7 +91,7 @@ public class NewBookingView extends VerticalLayout {
                 .withValidator(Objects::nonNull, "Room number must be selected")
                 .bind(Booking::getRoomNumber, Booking::setRoomNumber);
         binder.forField(roomType)
-                .withValidator(Objects::nonNull, "Room type must be selected")
+                .withValidator(roomType-> bookingService.isAvailable(String.valueOf(roomNumber),roomType), "Room is not available")
                 .bind(Booking::getRoomType, Booking::setRoomType);
         binder.forField(bedType)
                 .withValidator(Objects::nonNull, "Bed type must be selected")

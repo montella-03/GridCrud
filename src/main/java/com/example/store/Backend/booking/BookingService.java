@@ -1,8 +1,10 @@
 package com.example.store.Backend.booking;
 
 import com.example.store.Backend.config.SecurityService;
+import com.example.store.Backend.enumerations.RoomType;
 import com.example.store.Backend.enumerations.Status;
 import com.example.store.Backend.rooms.Room;
+import com.example.store.Backend.rooms.RoomRepository;
 import com.example.store.Backend.rooms.RoomService;
 import org.springframework.stereotype.Service;
 import org.vaadin.crudui.crud.CrudListener;
@@ -18,12 +20,14 @@ public class BookingService implements CrudListener<Booking> {
     private final BookingRepository bookingRepository;
     private final RoomService roomService;
     private final SecurityService securityService;
+    private final RoomRepository roomRepository;
     private static final Logger LOGGER = Logger.getLogger(BookingService.class.getName());
 
-    public BookingService(BookingRepository bookingRepository, RoomService roomService, SecurityService securityService) {
+    public BookingService(BookingRepository bookingRepository, RoomService roomService, SecurityService securityService, RoomRepository roomRepository) {
         this.bookingRepository = bookingRepository;
         this.roomService = roomService;
         this.securityService = securityService;
+        this.roomRepository = roomRepository;
     }
 
     @Override
@@ -80,5 +84,12 @@ public class BookingService implements CrudListener<Booking> {
         return bookingRepository.findTodayGuests(LocalDate.now());
 
 
+    }
+
+    public boolean isAvailable(String roomNumber, RoomType roomType) {
+        // if room number contains the room types
+
+        Room room = roomRepository.findByRoomNumber(roomNumber);
+        return room.getRoomType().equals(roomType);
     }
 }

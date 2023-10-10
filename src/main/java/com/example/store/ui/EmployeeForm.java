@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Route(value = "new-employee",layout = MainLayout.class)
-@RolesAllowed("MANAGER")
+@RolesAllowed({"MANAGER","ADMIN"})
 public class EmployeeForm extends VerticalLayout {
     private final EmployeeService employeeService;
     private TextField firstName = new TextField("First Name");

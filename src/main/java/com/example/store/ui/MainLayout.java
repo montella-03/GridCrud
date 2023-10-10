@@ -18,8 +18,8 @@ import com.vaadin.flow.router.RouterLink;
 import jakarta.annotation.security.RolesAllowed;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-@Route(value = "")
-@RolesAllowed({"USER","MANAGER"})
+
+@RolesAllowed({"USER","MANAGER","ADMIN"})
 public class MainLayout extends AppLayout {
 
 
@@ -144,6 +144,7 @@ public class MainLayout extends AppLayout {
     private boolean checkUser(){
         UserDetails userDetails= (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        return userDetails.getAuthorities().stream().anyMatch(a->a.getAuthority().equals("ROLE_MANAGER"));
+        return userDetails.getAuthorities().stream().anyMatch(a->a.getAuthority().equals("ROLE_MANAGER")
+                || a.getAuthority().equals("ROLE_ADMIN"));
     }
 }

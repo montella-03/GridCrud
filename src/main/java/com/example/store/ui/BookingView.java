@@ -104,6 +104,8 @@ public class BookingView extends VerticalLayout {
     private VerticalLayout AvailableRooms() {
 
         var verticalLayout = new VerticalLayout();
+        //<theme-editor-local-classname>
+        verticalLayout.addClassName("booking-view-vertical-layout-1");
         var h2 = new H1(roomService.findAllByRoomStatus(Status.AVAILABLE).size() + "+");
 
         h2.addClassName("number");

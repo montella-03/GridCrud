@@ -3,6 +3,14 @@
   "license": "UNLICENSED",
   "type": "module",
   "dependencies": {
+    "@fullcalendar/core": "6.1.6",
+    "@fullcalendar/daygrid": "6.1.6",
+    "@fullcalendar/interaction": "6.1.6",
+    "@fullcalendar/list": "6.1.6",
+    "@fullcalendar/moment": "6.1.6",
+    "@fullcalendar/moment-timezone": "6.1.6",
+    "@fullcalendar/multimonth": "6.1.6",
+    "@fullcalendar/timegrid": "6.1.6",
     "@polymer/polymer": "3.5.1",
     "@vaadin/a11y-base": "24.1.9",
     "@vaadin/accordion": "24.1.9",
@@ -78,6 +86,8 @@
     "date-fns": "2.29.3",
     "lit": "2.7.6",
     "mobile-drag-drop": "2.3.0-rc.2",
+    "moment": "2.29.4",
+    "moment-timezone": "0.5.40",
     "proj4": "2.9.0"
   },
   "devDependencies": {
@@ -100,6 +110,14 @@
   },
   "vaadin": {
     "dependencies": {
+      "@fullcalendar/core": "6.1.6",
+      "@fullcalendar/daygrid": "6.1.6",
+      "@fullcalendar/interaction": "6.1.6",
+      "@fullcalendar/list": "6.1.6",
+      "@fullcalendar/moment": "6.1.6",
+      "@fullcalendar/moment-timezone": "6.1.6",
+      "@fullcalendar/multimonth": "6.1.6",
+      "@fullcalendar/timegrid": "6.1.6",
       "@polymer/polymer": "3.5.1",
       "@vaadin/a11y-base": "24.1.9",
       "@vaadin/accordion": "24.1.9",
@@ -175,6 +193,8 @@
       "date-fns": "2.29.3",
       "lit": "2.7.6",
       "mobile-drag-drop": "2.3.0-rc.2",
+      "moment": "2.29.4",
+      "moment-timezone": "0.5.40",
       "proj4": "2.9.0"
     },
     "devDependencies": {
@@ -195,7 +215,7 @@
       "workbox-core": "7.0.0",
       "workbox-precaching": "7.0.0"
     },
-    "hash": "8f98b74ce915c50a1db29a6a6e7bb2effa71c7b7fd64750ea16abd2174a8658e"
+    "hash": "66ef80c339320133da28ea9855975e9d98d71eaa5eb3ab9d9ccf883b1767a538"
   },
   "overrides": {
     "@vaadin/bundles": "$@vaadin/bundles",
@@ -273,6 +293,16 @@
     "proj4": "$proj4",
     "@vaadin/vaadin-themable-mixin": "$@vaadin/vaadin-themable-mixin",
     "date-fns": "$date-fns",
-    "mobile-drag-drop": "$mobile-drag-drop"
+    "mobile-drag-drop": "$mobile-drag-drop",
+    "@fullcalendar/core": "$@fullcalendar/core",
+    "@fullcalendar/list": "$@fullcalendar/list",
+    "@fullcalendar/moment-timezone": "$@fullcalendar/moment-timezone",
+    "@fullcalendar/interaction": "$@fullcalendar/interaction",
+    "@fullcalendar/timegrid": "$@fullcalendar/timegrid",
+    "moment": "$moment",
+    "@fullcalendar/daygrid": "$@fullcalendar/daygrid",
+    "moment-timezone": "$moment-timezone",
+    "@fullcalendar/multimonth": "$@fullcalendar/multimonth",
+    "@fullcalendar/moment": "$@fullcalendar/moment"
   }
 }

@@ -38,9 +38,7 @@ public class Employee {
     private String email;
     private String password;
     private String phoneNumber;
-    private String address;
-//   @ElementCollection(fetch = FetchType.EAGER)
-//   private List<GrantedAuthority> authorities= new ArrayList<>();
+    private String address;;
     @Enumerated(EnumType.STRING)
     private Role role;
     private boolean isLocked;
@@ -49,7 +47,5 @@ public class Employee {
         return new User(email, password, role.getGrantedAuthorities());
     }
 
-//    public UserDetails asUser() {
-//        return new User(email, password, authorities);
-//    }
+
 }

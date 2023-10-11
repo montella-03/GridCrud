@@ -66,6 +66,7 @@ public class MainLayout extends AppLayout {
             verticalLayout.add(createManager());
         }
         verticalLayout.add(createHome());
+        verticalLayout.add(rooms());
         verticalLayout.add(createBooking());
         verticalLayout.add(createCalendar());
         verticalLayout.add(createExpenditure());
@@ -128,6 +129,14 @@ public class MainLayout extends AppLayout {
         Icon icon = new Icon(VaadinIcon.CHART);
         icon.addClassNames("mr-2","text-green-500","ml-2");
         return new HorizontalLayout(icon,analyticsView);
+    }
+    private HorizontalLayout rooms(){
+        RouterLink roomView = new RouterLink("ROOMS", AllRooms.class);
+        roomView.setHighlightCondition(HighlightConditions.sameLocation());
+        roomView.addClassNames("font-serif");
+        Icon icon = new Icon(VaadinIcon.ABACUS);
+        icon.addClassNames("mr-2","text-green-500","ml-2");
+        return new HorizontalLayout(icon,roomView);
     }
 
     private HorizontalLayout createLogout(){

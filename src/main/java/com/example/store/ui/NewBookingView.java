@@ -91,7 +91,7 @@ public class NewBookingView extends VerticalLayout {
                 .withValidator(Objects::nonNull, "Room number must be selected")
                 .bind(Booking::getRoomNumber, Booking::setRoomNumber);
         binder.forField(roomType)
-                .withValidator(roomType-> bookingService.isAvailable(String.valueOf(roomNumber),roomType), "Room is not available")
+                .withValidator(Objects::nonNull, "Room is not available")
                 .bind(Booking::getRoomType, Booking::setRoomType);
         binder.forField(bedType)
                 .withValidator(Objects::nonNull, "Bed type must be selected")
